@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Rankings</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #d21616;
+            background-image: url('images.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        button {
+            background-color: #eceff1;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 100px;
+            
+        
+        }
+        #logo-overlay {
+            position: absolute;
+            top: 10%;
+            left: 30%;
+            transform: translate(-10%, -30%);
+            z-index: 1;
+        video {
+            width: 100%;
+            max-width: 640px;
+            margin: 20px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+   
+    <img id="logo-overlay" src="ki.png" alt="Google Logo">
+    <button id="cameraButton">show results</button>
+    <video id="cameraFeed" autoplay></video>
+    <audio id="backgroundMusic" src="Na Tum Jano Na.mp3" loop></audio>
+
+    <script>
+        document.getElementById('cameraButton').addEventListener('click', async () => {
+            const music = document.getElementById('backgroundMusic');
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+                music.currentTime = 0; // Rewind to the beginning
+            }
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const videoElement = document.getElementById('cameraFeed');
+                videoElement.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+            }
+        });
+    </script>
+</body>
+</html>
